@@ -5,7 +5,7 @@ import { useLanguage } from '../../context/useLanguage';
 import { AlertTriangle, CheckCircle, ArrowRight } from 'lucide-react';
 
 export default function SmartAlertBanner({ alerts = [] }) {
-  const { isHindi } = useLanguage();
+  const { isHindi, t } = useLanguage();
 
   if (!alerts || alerts.length === 0) {
     return (
@@ -13,12 +13,10 @@ export default function SmartAlertBanner({ alerts = [] }) {
         <CheckCircle className="w-7 h-7 text-green-700 shrink-0" />
         <div className="flex-1">
           <div className="font-bold text-green-900 text-sm">
-            {isHindi ? 'सभी जांच सफल — खाता दावा प्रस्तुत करने के लिए तैयार है' : 'All Pre-Checks Passed — Account Ready'}
+            {t('allChecksPassedTitle')}
           </div>
           <div className="text-xs text-green-800 mt-0.5">
-            {isHindi 
-              ? 'आपके ईपीएफओ और आधार रिकॉर्ड में कोई विसंगति नहीं पाई गई है। आप बिना किसी रुकावट के दावा कर सकते हैं।' 
-              : 'Zero KYC discrepancies detected between EPFO, Aadhaar, and Bank records. You are eligible for 1-click claim settlement.'}
+            {t('allChecksPassedDesc')}
           </div>
         </div>
         <Link
@@ -48,7 +46,7 @@ export default function SmartAlertBanner({ alerts = [] }) {
         </div>
         {criticalCount > 0 && (
           <span className="bg-red-900 text-yellow-200 text-xs font-semibold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-            {criticalCount} Critical
+            {criticalCount} {t('critical')}
           </span>
         )}
       </div>

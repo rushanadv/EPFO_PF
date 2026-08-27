@@ -12,11 +12,11 @@ export default function GovTopBar() {
         <div className="flex items-center gap-2">
           <span className="text-sm select-none">🇮🇳</span>
           <span className="font-medium text-slate-200">
-            {isHindi ? 'भारत सरकार' : 'Government of India'}
+            {t('govIndia')}
           </span>
           <span className="text-neutral-600 hidden sm:inline">|</span>
           <span className="text-neutral-300 hidden sm:inline">
-            {isHindi ? 'श्रम एवं रोजगार मंत्रालय' : 'Ministry of Labour & Employment'}
+            {t('org_ministry')}
           </span>
           <span className="text-neutral-600 hidden md:inline">|</span>
           <a

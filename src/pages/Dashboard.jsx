@@ -9,14 +9,14 @@ import {
   User, 
   CreditCard, 
   TrendingUp, 
-  CheckCircle2,
-  Clock,
-  Sparkles
+  CheckCircle2, 
+  Clock, 
+  Sparkles 
 } from 'lucide-react';
 
 export default function Dashboard() {
   const { member, alerts } = useMember();
-  const { isHindi } = useLanguage();
+  const { isHindi, t } = useLanguage();
 
   const formattedEpf = (member?.balance?.total || 436000).toLocaleString('en-IN');
   const formattedEps = (member?.balance?.pensionCorpus || 84000).toLocaleString('en-IN');
@@ -31,7 +31,7 @@ export default function Dashboard() {
           <div className="flex items-center gap-2">
             <User className="w-5 h-5 text-yellow-300" />
             <h2 className="font-bold text-sm uppercase tracking-wide">
-              {isHindi ? 'सदस्य प्रोफ़ाइल एवं पहचान (Member Profile)' : 'Member Profile & Identity Details'}
+              {t('member_profile_title')}
             </h2>
           </div>
           <span className="text-[11px] bg-[#001f6b] text-yellow-300 font-mono font-bold px-2.5 py-0.5 rounded border border-blue-400/30">
@@ -43,15 +43,15 @@ export default function Dashboard() {
           {/* Col 1: Basic Identity */}
           <div className="space-y-2 border-r border-slate-100 pr-4">
             <div>
-              <span className="text-slate-400 block text-[10px] uppercase font-semibold">Member Name</span>
+              <span className="text-slate-400 block text-[10px] uppercase font-semibold">{t('member_name')}</span>
               <span className="font-bold text-slate-900 text-sm">{member?.name || 'Ravi Kumar'}</span>
             </div>
             <div>
-              <span className="text-slate-400 block text-[10px] uppercase font-semibold">Date of Birth</span>
+              <span className="text-slate-400 block text-[10px] uppercase font-semibold">{t('dob')}</span>
               <span className="font-semibold text-slate-800">{member?.dob || '15/08/1993'}</span>
             </div>
             <div>
-              <span className="text-slate-400 block text-[10px] uppercase font-semibold">Registered Mobile & Email</span>
+              <span className="text-slate-400 block text-[10px] uppercase font-semibold">{t('registered_contact')}</span>
               <span className="font-medium text-slate-700">{member?.mobile || '98XXXXXXXX'} • {member?.email || 'r***@gmail.com'}</span>
             </div>
           </div>
@@ -59,24 +59,24 @@ export default function Dashboard() {
           {/* Col 2: Service & Establishment */}
           <div className="space-y-2 border-r border-slate-100 pr-4">
             <div>
-              <span className="text-slate-400 block text-[10px] uppercase font-semibold">Current Establishment</span>
+              <span className="text-slate-400 block text-[10px] uppercase font-semibold">{t('current_establishment')}</span>
               <span className="font-bold text-slate-900">{member?.establishment || 'TechCorp India Pvt Ltd'}</span>
             </div>
             <div>
-              <span className="text-slate-400 block text-[10px] uppercase font-semibold">Member ID</span>
+              <span className="text-slate-400 block text-[10px] uppercase font-semibold">{t('member_id')}</span>
               <span className="font-mono text-slate-800 font-semibold">{member?.memberId || 'MHBAN0027180000012345'}</span>
             </div>
             <div className="flex gap-4">
               <div>
-                <span className="text-slate-400 block text-[10px] uppercase font-semibold">Date of Joining (DOJ)</span>
+                <span className="text-slate-400 block text-[10px] uppercase font-semibold">{t('doj')}</span>
                 <span className="font-medium text-slate-700">{member?.doj || '01/03/2019'}</span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[10px] uppercase font-semibold">Date of Exit (DOE)</span>
+                <span className="text-slate-400 block text-[10px] uppercase font-semibold">{t('doe')}</span>
                 {member?.doe ? (
                   <span className="font-semibold text-green-700">{member.doe}</span>
                 ) : (
-                  <span className="font-bold text-red-600 bg-red-50 px-1.5 py-0.5 rounded">NOT MARKED</span>
+                  <span className="font-bold text-red-600 bg-red-50 px-1.5 py-0.5 rounded">{t('not_marked')}</span>
                 )}
               </div>
             </div>
@@ -84,22 +84,22 @@ export default function Dashboard() {
 
           {/* Col 3: KYC Verification Badges */}
           <div className="space-y-2.5">
-            <span className="text-slate-400 block text-[10px] uppercase font-semibold">Seeded KYC Verification</span>
+            <span className="text-slate-400 block text-[10px] uppercase font-semibold">{t('seeded_kyc_verification')}</span>
             <div className="space-y-1.5">
               <div className="flex items-center justify-between p-1.5 bg-slate-50 rounded border border-slate-200">
-                <span className="text-slate-700 font-medium">Aadhaar (UIDAI):</span>
+                <span className="text-slate-700 font-medium">{t('kyc_aadhaar')} (UIDAI):</span>
                 <span className="font-bold text-[11px] text-green-700 bg-green-100 px-2 py-0.5 rounded flex items-center gap-1">
                   <CheckCircle2 className="w-3 h-3" /> {member?.kyc?.aadhaar?.status || 'APPROVED'}
                 </span>
               </div>
               <div className="flex items-center justify-between p-1.5 bg-slate-50 rounded border border-slate-200">
-                <span className="text-slate-700 font-medium">PAN (Income Tax):</span>
+                <span className="text-slate-700 font-medium">{t('kyc_pan')} (Income Tax):</span>
                 <span className="font-bold text-[11px] text-green-700 bg-green-100 px-2 py-0.5 rounded flex items-center gap-1">
                   <CheckCircle2 className="w-3 h-3" /> {member?.kyc?.pan?.status || 'APPROVED'}
                 </span>
               </div>
               <div className="flex items-center justify-between p-1.5 bg-slate-50 rounded border border-slate-200">
-                <span className="text-slate-700 font-medium">Bank Account ({member?.kyc?.bank?.bank?.split(' ')[0] || 'SBI'}):</span>
+                <span className="text-slate-700 font-medium">{t('kyc_bank')} ({member?.kyc?.bank?.bank?.split(' ')[0] || 'SBI'}):</span>
                 {member?.kyc?.bank?.type === 'joint_parent' ? (
                   <span className="font-bold text-[11px] text-red-700 bg-red-100 px-2 py-0.5 rounded">
                     INVALID JOINT A/C
@@ -115,7 +115,7 @@ export default function Dashboard() {
               to="/manage/kyc"
               className="text-[11px] text-[#003399] hover:underline font-bold inline-flex items-center gap-1 pt-1"
             >
-              <span>View Full KYC Details & Audit →</span>
+              <span>{t('view_full_kyc')}</span>
             </Link>
           </div>
         </div>
@@ -131,11 +131,11 @@ export default function Dashboard() {
             <div className="flex items-center gap-2">
               <CreditCard className="w-5 h-5 text-[#003399]" />
               <h3 className="font-bold text-sm text-slate-900 uppercase tracking-wide">
-                {isHindi ? 'भविष्य निधि कोष शेष (Accumulated PF Balance)' : 'Total Accumulated EPF Balance'}
+                {t('dashboard_title')}
               </h3>
             </div>
             <span className="text-xs text-slate-500 font-medium">
-              As of: <strong>31/03/2026</strong>
+              {t('dashboard_last_updated')}: <strong>31/03/2026</strong>
             </span>
           </div>
 
@@ -143,18 +143,18 @@ export default function Dashboard() {
             {/* Main EPF Balance */}
             <div className="bg-white p-4 rounded-lg border border-blue-200 shadow-xs">
               <div className="text-xs text-slate-500 font-semibold uppercase">
-                {isHindi ? 'ईपीएफ कुल शेष (Withdrawable EPF)' : 'Withdrawable EPF Balance'}
+                {t('withdrawable_epf_balance')}
               </div>
               <div className="text-2xl sm:text-3xl font-black text-[#003399] mt-1 tracking-tight">
                 ₹{formattedEpf}
               </div>
               <div className="mt-2 text-[11px] text-slate-600 space-y-0.5 border-t border-slate-100 pt-2">
                 <div className="flex justify-between">
-                  <span>Employee Share (12%):</span>
+                  <span>{t('employee_share')}:</span>
                   <span className="font-semibold text-slate-800">₹{formattedEmpShare}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Employer Share (3.67%):</span>
+                  <span>{t('employer_share')}:</span>
                   <span className="font-semibold text-slate-800">₹{formattedEmplrShare}</span>
                 </div>
               </div>
@@ -163,17 +163,17 @@ export default function Dashboard() {
             {/* EPS Pension Corpus */}
             <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-xs">
               <div className="text-xs text-slate-500 font-semibold uppercase">
-                {isHindi ? 'ईपीएस पेंशन कोष (EPS Corpus)' : 'EPS Pension Corpus'}
+                {t('eps_pension_corpus')}
               </div>
               <div className="text-2xl sm:text-3xl font-black text-slate-800 mt-1 tracking-tight">
                 ₹{formattedEps}
               </div>
               <div className="mt-2 text-[11px] text-slate-600 space-y-1 border-t border-slate-100 pt-2">
                 <div className="text-slate-500">
-                  {isHindi ? '10 वर्ष सेवा होने पर मासिक पेंशन' : 'Monthly pension scheme (Form 10D) if service > 10 years.'}
+                  {t('eps_note')}
                 </div>
                 <div className="text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded font-medium">
-                  Withdrawable via Form 10C only if service &lt; 10 years.
+                  {t('eps_withdrawable_note')}
                 </div>
               </div>
             </div>
@@ -182,13 +182,13 @@ export default function Dashboard() {
           <div className="mt-4 pt-3 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2 text-xs">
             <div className="flex items-center gap-1.5 text-green-800 font-semibold">
               <TrendingUp className="w-4 h-4 text-green-600" />
-              <span>Interest Rate: <strong>8.25% p.a.</strong> (Approved for FY 2025-26)</span>
+              <span>{t('approved_interest')}</span>
             </div>
             <Link
               to="/passbook"
               className="text-[#003399] hover:underline font-bold flex items-center gap-1"
             >
-              <span>Download Detailed Passbook PDF →</span>
+              <span>{t('download_passbook_pdf')}</span>
             </Link>
           </div>
         </div>
@@ -198,13 +198,13 @@ export default function Dashboard() {
           <div>
             <div className="flex items-center gap-2 text-yellow-300 font-bold text-xs uppercase tracking-wider mb-2">
               <Sparkles className="w-4 h-4" />
-              <span>EPFO 3.0 Direct Payout</span>
+              <span>{t('epfo3_direct_payout')}</span>
             </div>
             <h4 className="text-base font-bold leading-snug">
-              Auto-Settlement of Claims up to ₹5,00,000
+              {t('epfo3_auto_settlement_desc')}
             </h4>
             <p className="text-xs text-blue-200 mt-2 leading-relaxed">
-              Skip employer attestation delays. If your KYC is clean, funds are processed by AI dealing bots within 3 business days.
+              {t('epfo3_bot_desc')}
             </p>
           </div>
 
@@ -213,7 +213,7 @@ export default function Dashboard() {
               to="/services/claim"
               className="w-full bg-[#F97316] hover:bg-[#C2590F] text-white font-bold text-xs py-2.5 px-4 rounded shadow-sm transition-colors flex items-center justify-center gap-2"
             >
-              <span>File Online Claim Now</span>
+              <span>{t('file_online_claim_now')}</span>
             </Link>
           </div>
         </div>
@@ -225,10 +225,10 @@ export default function Dashboard() {
           <div className="flex items-center justify-between">
             <h3 className="font-bold text-sm text-slate-900 uppercase tracking-wide flex items-center gap-2">
               <Clock className="w-4 h-4 text-[#003399]" />
-              <span>{isHindi ? 'सक्रिय दावा स्थिति एवं वास्तविक अर्थ' : 'Active Claim Status & AI Diagnosis'}</span>
+              <span>{t('active_claim_heading')}</span>
             </h3>
             <span className="text-xs text-slate-500 font-mono">
-              Claim ID: <strong>{member.activeClaim.referenceId}</strong>
+              {t('tracking_reference_id')}: <strong>{member.activeClaim.referenceId}</strong>
             </span>
           </div>
 
@@ -242,7 +242,7 @@ export default function Dashboard() {
       {/* 5. Quick Services Grid */}
       <div className="space-y-3">
         <h3 className="font-bold text-sm text-slate-900 uppercase tracking-wide">
-          {isHindi ? 'ईपीएफओ त्वरित ऑनलाइन सेवाएं' : 'EPFO Member Services Grid'}
+          {t('epfo_services_grid')}
         </h3>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">

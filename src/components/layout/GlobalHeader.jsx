@@ -9,7 +9,7 @@ import { PhoneCall, Smartphone, HelpCircle } from 'lucide-react';
 import { useLanguage } from '../../context/useLanguage';
 
 export default function GlobalHeader() {
-  const { isHindi } = useLanguage();
+  const { language, setLanguage, isHindi, t } = useLanguage();
 
   return (
     <header className="sticky top-0 z-40 shadow-md">
@@ -22,13 +22,39 @@ export default function GlobalHeader() {
           {/* Logo & Org Brand */}
           <EPFOLogo />
 
-          {/* Quick Header Badges / Helpline */}
+          {/* Quick Header Badges / Helpline & Language Pill Toggle */}
           <div className="hidden md:flex items-center gap-3">
+            {/* Bilingual Language Toggle Pill */}
+            <div className="flex items-center bg-white/10 rounded-full p-0.5 border border-white/20">
+              <button
+                type="button"
+                onClick={() => setLanguage('en')}
+                className={`px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                  language === 'en'
+                    ? 'bg-white text-[#003399] shadow-xs'
+                    : 'text-white hover:bg-white/10'
+                }`}
+              >
+                EN
+              </button>
+              <button
+                type="button"
+                onClick={() => setLanguage('hi')}
+                className={`px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer font-hindi ${
+                  language === 'hi'
+                    ? 'bg-white text-[#003399] shadow-xs'
+                    : 'text-white hover:bg-white/10'
+                }`}
+              >
+                हिं
+              </button>
+            </div>
+
             {/* Helpline Pill */}
             <div className="flex items-center gap-2 bg-[#003399]/80 border border-blue-400/30 px-3 py-1.5 rounded-lg text-white">
               <PhoneCall className="w-4 h-4 text-[#F97316]" />
               <div>
-                <div className="text-[10px] text-blue-200 uppercase font-semibold">Toll-Free Helpline</div>
+                <div className="text-[10px] text-blue-200 uppercase font-semibold">{t('helpline_title')}</div>
                 <div className="text-xs font-bold text-yellow-300">14470 / 1800-118-005</div>
               </div>
             </div>
@@ -41,7 +67,7 @@ export default function GlobalHeader() {
               className="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded-lg border border-white/20 text-xs font-semibold transition-colors"
             >
               <Smartphone className="w-4 h-4 text-green-400" />
-              <span>UMANG App</span>
+              <span>{t('umang_app')}</span>
             </a>
 
             {/* Help desk link */}

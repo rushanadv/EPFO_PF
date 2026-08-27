@@ -1,5 +1,6 @@
 // src/context/LanguageContext.jsx
 import React, { useState, useEffect } from 'react';
+import { translations } from '../i18n/translations';
 import { LABELS } from '../data/labels';
 import { LanguageContext } from './LanguageContextDefinition';
 
@@ -27,7 +28,18 @@ export function LanguageProvider({ children }) {
   };
 
   const t = (key) => {
-    return LABELS[language]?.[key] || LABELS.en?.[key] || key;
+    const currentDict = translations[language] || {};
+    const fallbackDict = translations.en || {};
+    const legacyDict = LABELS[language] || {};
+    const legacyFallback = LABELS.en || {};
+
+    return (
+      currentDict[key] ||
+      legacyDict[key] ||
+      fallbackDict[key] ||
+      legacyFallback[key] ||
+      key
+    );
   };
 
   return (

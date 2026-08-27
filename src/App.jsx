@@ -7,6 +7,7 @@ import GlobalHeader from './components/layout/GlobalHeader';
 import Sidebar from './components/layout/Sidebar';
 import Footer from './components/layout/Footer';
 import PersonaSwitcher from './components/shared/PersonaSwitcher';
+import EPFOAlertModal from './components/shared/EPFOAlertModal';
 
 // Pages
 import LandingPage from './pages/LandingPage';
@@ -28,6 +29,9 @@ function PortalLayout({ children }) {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F1F5F9] text-slate-900 font-sans">
+      {/* Official EPFO Security Alert Modal (shows once on session load) */}
+      <EPFOAlertModal />
+
       {/* Global 4-Strip Header */}
       <GlobalHeader />
 

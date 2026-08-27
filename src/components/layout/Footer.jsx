@@ -55,10 +55,10 @@ export default function Footer() {
               {isHindi ? 'सामाजिक सुरक्षा योजनाएं' : 'Social Security Schemes'}
             </div>
             <ul className="space-y-1.5 text-blue-200">
-              <li><strong>EPF Scheme 1952:</strong> Provident fund retirement accumulation & withdrawal</li>
-              <li><strong>EPS Scheme 1995:</strong> Monthly pension benefit for 10+ years qualifying service</li>
-              <li><strong>EDLI Scheme 1976:</strong> Assurance benefit up to ₹7 lakh in case of member demise</li>
-              <li><strong>EPFO 3.0 Framework:</strong> Fast-track claim auto-settlement engine</li>
+              <li><strong>EPF Scheme 1952:</strong> {isHindi ? 'भविष्य निधि सेवानिवृत्ति संचय एवं निकासी' : 'Provident fund retirement accumulation & withdrawal'}</li>
+              <li><strong>EPS Scheme 1995:</strong> {isHindi ? '10+ वर्ष सेवा पर मासिक पेंशन लाभ' : 'Monthly pension benefit for 10+ years qualifying service'}</li>
+              <li><strong>EDLI Scheme 1976:</strong> {isHindi ? 'सदस्य के निधन पर ₹7 लाख तक का बीमा लाभ' : 'Assurance benefit up to ₹7 lakh in case of member demise'}</li>
+              <li><strong>EPFO 3.0 Framework:</strong> {isHindi ? 'फास्ट-ट्रैक ऑटो-सेटलमेंट इंजन' : 'Fast-track claim auto-settlement engine'}</li>
             </ul>
           </div>
 
@@ -84,7 +84,9 @@ export default function Footer() {
               Designed & built for <strong>"Build What Moves India"</strong> Hackathon by Varun Mayya (28 Aug 2026).
             </p>
             <div className="bg-blue-950/80 p-2.5 rounded border border-blue-800 text-[11px] text-blue-300">
-              <strong>Objective:</strong> Eliminating 17.4 million blind claim rejections through real-time forensic pre-checks and plain-language legal clarity.
+              <strong>Objective:</strong> {isHindi
+                ? 'वास्तविक समय फॉरेंसिक प्री-चेक और सरल भाषा अनुवाद द्वारा 1.74 करोड़ रिजेक्शन्स को समाप्त करना।'
+                : 'Eliminating 17.4 million blind claim rejections through real-time forensic pre-checks and plain-language legal clarity.'}
             </div>
           </div>
         </div>

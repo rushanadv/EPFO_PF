@@ -1,8 +1,11 @@
 // src/components/layout/EPFOLogo.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../../context/useLanguage';
 
 export default function EPFOLogo() {
+  const { t } = useLanguage();
+
   return (
     <Link to="/dashboard" className="flex items-center gap-3 group focus:outline-none">
       {/* Authentic EPFO Gear Logo SVG */}
@@ -50,13 +53,13 @@ export default function EPFOLogo() {
       {/* Typography */}
       <div>
         <div className="text-white font-bold text-base sm:text-lg leading-tight tracking-tight group-hover:text-blue-100 transition-colors">
-          Employees' Provident Fund Organisation
+          {t('org_name_en')}
         </div>
         <div className="text-blue-200 text-xs font-normal mt-0.5 leading-snug">
-          Ministry of Labour & Employment, Government of India
+          {t('org_ministry')}
         </div>
-        <div className="text-[#F97316] font-bold text-[10px] uppercase tracking-wider mt-0.5">
-          कर्मचारी भविष्य निधि संगठन (भारत)
+        <div className="text-[#F97316] font-bold text-[10px] uppercase tracking-wider mt-0.5 font-hindi">
+          {t('org_name_hi')}
         </div>
       </div>
     </Link>

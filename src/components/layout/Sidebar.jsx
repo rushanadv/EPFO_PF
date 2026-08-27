@@ -19,7 +19,7 @@ import { useLanguage } from '../../context/useLanguage';
 
 export default function Sidebar() {
   const { member } = useMember();
-  const { isHindi } = useLanguage();
+  const { isHindi, t } = useLanguage();
 
   const isAadhaarApproved = member?.kyc?.aadhaar?.status === 'APPROVED';
   const isPanApproved = member?.kyc?.pan?.status === 'APPROVED';
@@ -96,17 +96,19 @@ export default function Sidebar() {
       <div className="epfo-card overflow-hidden">
         <div className="bg-[#001f6b] text-white px-4 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2">
           <PhoneCall className="w-3.5 h-3.5 text-yellow-300" />
-          <span>{isHindi ? 'ईपीएफओ हेल्पलाइन' : 'EPFO National Helpline'}</span>
+          <span>{t('helpline_title')}</span>
         </div>
         <div className="p-4 space-y-2.5 text-xs">
           <div className="flex items-center gap-2 text-[#F97316] font-bold text-lg">
             <span>📞 14470</span>
           </div>
           <div className="text-slate-700 text-xs font-medium">
-            Toll-Free • 7:00 AM – 9:00 PM (All Days)
+            {t('helpline_hours')}
           </div>
           <p className="text-slate-500 text-[11px] leading-relaxed">
-            Support available in Hindi, English, Kannada, Tamil, Telugu, Marathi, Bengali & Gujarati.
+            {isHindi
+              ? 'हिंदी, अंग्रेजी, कन्नड़, तमिल, तेलुगु, मराठी, बंगाली और गुजराती में सहायता उपलब्ध।'
+              : 'Support available in Hindi, English, Kannada, Tamil, Telugu, Marathi, Bengali & Gujarati.'}
           </p>
           <div className="pt-2 border-t border-slate-200 text-slate-600 text-[11px]">
             Alt Toll-Free: <strong>1800-118-005</strong><br />
@@ -120,7 +122,7 @@ export default function Sidebar() {
         <div className="flex items-center justify-between">
           <span className="text-xs font-bold text-[#003399] uppercase tracking-wide flex items-center gap-1.5">
             <Zap className="w-3.5 h-3.5 text-[#F97316]" />
-            <span>EPFO 3.0 Readiness</span>
+            <span>{isHindi ? 'ईपीएफओ 3.0 तत्परता' : 'EPFO 3.0 Readiness'}</span>
           </span>
           <span className="text-[10px] bg-blue-200 text-blue-900 font-bold px-2 py-0.5 rounded-full">
             2026 Engine
@@ -129,28 +131,28 @@ export default function Sidebar() {
 
         <div className="space-y-2 text-xs bg-white p-3 rounded border border-blue-200/60 divide-y divide-slate-100">
           <div className="flex justify-between items-center pb-1.5">
-            <span className="text-slate-700 font-medium">Auto-Settlement (≤ ₹5L)</span>
+            <span className="text-slate-700 font-medium">{isHindi ? 'ऑटो-सेटलमेंट (≤ ₹5L)' : 'Auto-Settlement (≤ ₹5L)'}</span>
             <span className="text-green-700 font-bold text-[11px] bg-green-100 px-2 py-0.5 rounded flex items-center gap-1">
               <CheckCircle2 className="w-3 h-3" /> Live
             </span>
           </div>
 
           <div className="flex justify-between items-center py-1.5">
-            <span className="text-slate-700 font-medium">UPI Withdrawal</span>
+            <span className="text-slate-700 font-medium">{isHindi ? 'यूपीआई निकासी' : 'UPI Withdrawal'}</span>
             <span className="text-amber-800 font-bold text-[11px] bg-amber-100 px-2 py-0.5 rounded flex items-center gap-1">
               <Clock className="w-3 h-3" /> Q3 2026
             </span>
           </div>
 
           <div className="flex justify-between items-center py-1.5">
-            <span className="text-slate-700 font-medium">ATM Withdrawal Card</span>
+            <span className="text-slate-700 font-medium">{isHindi ? 'एटीएम निकासी कार्ड' : 'ATM Withdrawal Card'}</span>
             <span className="text-amber-800 font-bold text-[11px] bg-amber-100 px-2 py-0.5 rounded flex items-center gap-1">
               <Clock className="w-3 h-3" /> Pilot Phase
             </span>
           </div>
 
           <div className="flex justify-between items-center pt-1.5">
-            <span className="text-slate-700 font-medium">Member KYC Status</span>
+            <span className="text-slate-700 font-medium">{isHindi ? 'केवाईसी स्थिति' : 'Member KYC Status'}</span>
             {isKycComplete ? (
               <span className="text-green-700 font-bold text-[11px] bg-green-100 px-2 py-0.5 rounded flex items-center gap-1">
                 <CheckCircle2 className="w-3 h-3" /> 100% Ready
@@ -173,24 +175,24 @@ export default function Sidebar() {
         <div className="p-3.5 space-y-3">
           {[
             {
-              date: 'Jul 2026',
+              date: isHindi ? 'जुलाई 2026' : 'Jul 2026',
               badge: 'Passbook',
-              text: 'Passbook updates for Sep–Oct 2025 under process. Temporary non-visibility expected during nightly maintenance.'
+              text: isHindi ? 'सितंबर-अक्टूबर 2025 की पासबुक अपडेट प्रक्रियाधीन है।' : 'Passbook updates for Sep–Oct 2025 under process. Temporary non-visibility expected.'
             },
             {
-              date: 'Apr 2026',
+              date: isHindi ? 'अप्रैल 2026' : 'Apr 2026',
               badge: 'Taxation',
-              text: 'Form 121 officially replaces Forms 15G/15H for Nil/Reduced TDS declaration on premature PF withdrawals.'
+              text: isHindi ? 'फॉर्म 121 ने टीडीएस छूट घोषणा के लिए फॉर्म 15G/15H की जगह ली।' : 'Form 121 officially replaces Forms 15G/15H for Nil/Reduced TDS declaration.'
             },
             {
-              date: 'Mar 2026',
+              date: isHindi ? 'मार्च 2026' : 'Mar 2026',
               badge: 'Interest Rate',
-              text: 'CBT announces 8.25% interest rate on EPF accumulations for FY 2025-26.'
+              text: isHindi ? 'वित्त वर्ष 2025-26 के लिए सीबीटी द्वारा 8.25% ब्याज दर घोषित।' : 'CBT announces 8.25% interest rate on EPF accumulations for FY 2025-26.'
             },
             {
-              date: 'Jan 2026',
+              date: isHindi ? 'जनवरी 2026' : 'Jan 2026',
               badge: 'Security',
-              text: 'Dual-factor Aadhaar OTP authentication made mandatory for all Member Portal sign-ins.'
+              text: isHindi ? 'सदस्य पोर्टल लॉगिन के लिए आधार ओटीपी अनिवार्य किया गया।' : 'Dual-factor Aadhaar OTP authentication made mandatory for all Member Portal sign-ins.'
             }
           ].map((item, idx) => (
             <div key={idx} className="border-l-2 border-[#F97316] pl-2.5 py-0.5 text-xs space-y-0.5">
