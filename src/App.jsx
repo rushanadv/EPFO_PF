@@ -1,73 +1,88 @@
 // src/App.jsx
-import React, { useState } from 'react';
-import { LanguageProvider } from './components/common/LanguageContext';
-import { Header } from './components/Header';
-import { Footer } from './components/Footer';
-import { PreCheckWizard } from './components/PreCheckWizard/PreCheckWizard';
-import { StatusTranslator } from './components/StatusTranslator/StatusTranslator';
-import { GetUnstuck } from './components/GetUnstuck/GetUnstuck';
-import { MOCK_USER } from './data/mockUser';
+import React from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { LanguageProvider } from './context/LanguageContext';
+import { MemberProvider } from './context/MemberContext';
+import GlobalHeader from './components/layout/GlobalHeader';
+import Sidebar from './components/layout/Sidebar';
+import Footer from './components/layout/Footer';
+import PersonaSwitcher from './components/shared/PersonaSwitcher';
 
-function App() {
-  const [activeScreen, setActiveScreen] = useState('screen1'); // 'screen1' | 'screen2' | 'screen3'
-  const [currentUser, setCurrentUser] = useState(MOCK_USER);
-  const [unstuckInitialTab, setUnstuckInitialTab] = useState('login');
+// Pages
+import LandingPage from './pages/LandingPage';
+import Dashboard from './pages/Dashboard';
+import KYCPage from './pages/KYCPage';
+import Profile from './pages/Profile';
+import MarkExit from './pages/MarkExit';
+import FileClaim from './pages/FileClaim';
+import Transfer from './pages/Transfer';
+import TrackClaim from './pages/TrackClaim';
+import ENomination from './pages/ENomination';
+import Passbook from './pages/Passbook';
+import LoginDiagnostic from './pages/LoginDiagnostic';
+import EscalationLadder from './pages/EscalationLadder';
 
-  const handleSelectPreset = (newUserData) => {
-    setCurrentUser(newUserData);
-  };
-
-  const handleNavigateToScreen = (screenId) => {
-    setActiveScreen(screenId);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleSelectGrievance = () => {
-    setUnstuckInitialTab('escalation');
-  };
+function PortalLayout({ children }) {
+  const location = useLocation();
+  const isLanding = location.pathname === '/';
 
   return (
-    <LanguageProvider>
-      <div className="min-h-screen flex flex-col bg-[#F1F5F9] text-[#0F172A] selection:bg-[#003399] selection:text-white font-sans">
-        {/* Persistent Official Header & Nav */}
-        <Header
-          activeScreen={activeScreen}
-          setActiveScreen={setActiveScreen}
-          currentUser={currentUser}
-          onSelectPreset={handleSelectPreset}
-        />
+    <div className="min-h-screen flex flex-col bg-[#F1F5F9] text-slate-900 font-sans">
+      {/* Global 4-Strip Header */}
+      <GlobalHeader />
 
-        {/* Main Content Area */}
-        <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6">
-          {activeScreen === 'screen1' && (
-            <PreCheckWizard
-              currentUser={currentUser}
-              onNavigateToStatus={() => handleNavigateToScreen('screen2')}
-            />
-          )}
-
-          {activeScreen === 'screen2' && (
-            <StatusTranslator
-              currentUser={currentUser}
-              onNavigateToScreen={handleNavigateToScreen}
-              onSelectGrievance={handleSelectGrievance}
-            />
-          )}
-
-          {activeScreen === 'screen3' && (
-            <GetUnstuck
-              currentUser={currentUser}
-              onNavigateToScreen={handleNavigateToScreen}
-              initialTab={unstuckInitialTab}
-            />
-          )}
-        </main>
-
-        {/* Persistent Official Footer */}
-        <Footer />
+      {/* Main App Container */}
+      <div id="main-content" className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-4 py-6">
+        {isLanding ? (
+          /* Full Width for Pre-Login Landing Page */
+          <main className="w-full">
+            {children}
+          </main>
+        ) : (
+          /* Standard 75% Main Content + 25% Sidebar for Logged-In Portal */
+          <div className="flex flex-col lg:flex-row gap-6 items-start">
+            <main className="flex-1 min-w-0 w-full">
+              {children}
+            </main>
+            <Sidebar />
+          </div>
+        )}
       </div>
-    </LanguageProvider>
+
+      {/* Floating Demo Persona Switcher */}
+      <PersonaSwitcher />
+
+      {/* Government Footer */}
+      <Footer />
+    </div>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <BrowserRouter>
+      <LanguageProvider>
+        <MemberProvider>
+          <PortalLayout>
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/manage/kyc" element={<KYCPage />} />
+              <Route path="/manage/profile" element={<Profile />} />
+              <Route path="/manage/mark-exit" element={<MarkExit />} />
+              <Route path="/services/claim" element={<FileClaim />} />
+              <Route path="/services/transfer" element={<Transfer />} />
+              <Route path="/services/track" element={<TrackClaim />} />
+              <Route path="/enomination" element={<ENomination />} />
+              <Route path="/passbook" element={<Passbook />} />
+              <Route path="/help/login-issues" element={<LoginDiagnostic />} />
+              <Route path="/help/escalation" element={<EscalationLadder />} />
+              {/* Catch-all fallback */}
+              <Route path="*" element={<Dashboard />} />
+            </Routes>
+          </PortalLayout>
+        </MemberProvider>
+      </LanguageProvider>
+    </BrowserRouter>
+  );
+}
