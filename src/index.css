@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --epfo-blue: #003399;
+    --epfo-blue-dark: #001f6b;
+    --epfo-blue-light: #E8EEF9;
+    --epfo-orange: #F97316;
+    --epfo-orange-dark: #C2590F;
+    --gov-green: #15803D;
+    --gov-red: #DC2626;
+    --gov-yellow: #D97706;
+    --bg-page: #F1F5F9;
+    --bg-card: #FFFFFF;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --border: #CBD5E1;
+  }
+
+  body {
+    font-family: 'Noto Sans', 'Noto Sans Devanagari', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+  }
+
+  /* Monospace font class for character diff */
+  .font-mono-diff {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+}
+
+/* Keyframe animations for shield */
+@keyframes shield-pulse-green {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 15px rgba(21, 128, 61, 0.4));
+  }
+  50% {
+    transform: scale(1.06);
+    filter: drop-shadow(0 0 28px rgba(21, 128, 61, 0.7));
+  }
+}
+
+@keyframes shield-shake-red {
+  0%, 100% {
+    transform: translateX(0);
+    filter: drop-shadow(0 0 16px rgba(220, 38, 38, 0.5));
+  }
+  15%, 45%, 75% {
+    transform: translateX(-6px);
+  }
+  30%, 60%, 90% {
+    transform: translateX(6px);
+  }
+}
+
+@keyframes shield-glow-orange {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 12px rgba(249, 115, 22, 0.4));
+  }
+  50% {
+    transform: scale(1.03);
+    filter: drop-shadow(0 0 20px rgba(249, 115, 22, 0.65));
+  }
+}
+
+.animate-shield-green {
+  animation: shield-pulse-green 2.5s ease-in-out infinite;
+}
+
+.animate-shield-red {
+  animation: shield-shake-red 0.8s ease-in-out;
+}
+
+.animate-shield-orange {
+  animation: shield-glow-orange 2s ease-in-out infinite;
+}
+
+/* Custom card shadow */
+.epfo-card {
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #CBD5E1;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Printable report styles */
+@media print {
+  body {
+    background: white !important;
+  }
+  header, footer, nav, .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+}
